@@ -1,0 +1,101 @@
+---
+title: "Practical 0"
+author: "Cassidy Singh"
+date: "2025-05-15"
+output:
+  pdf_document: default
+  html_document:
+    fig_width: 25
+    fig_height: 25
+    highlight: espresso
+    theme: paper
+---
+```{r}
+library(tidyverse) 
+library(datasauRus)
+?datasaurus_dozen
+```
+
+## 1. Based on the help file, how many rows and how many columns does the datasaurus_dozen file have? What are the variables included in the data frame? (this can be hardcoded)
+## there are 1846 rows and 3 columns. the variables included in the data frame are dataset, x, and y.
+```{r question 2 code}
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "dino")
+  
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+  
+## 2. Plot y vs. x for the dino dataset. Then, calculate the correlation coefficient between x and y for this dataset.
+##-0.0645
+
+```{r question 3 code}
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "star")
+  
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+  
+## 3. Plot y vs. x for the star dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between x and y for this dataset. How does this value compare to the r of dino?
+## the correlation coef is -0.0630, which is slightly less than the correlation coef of the dino.
+
+```{r question 4 code}
+dino_data <- datasaurus_dozen %>%
+  filter(dataset == "circle")
+  
+ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
+  geom_point()
+
+dino_data %>%
+  summarize(r = cor(x, y))
+```
+
+## 4. Plot y vs. x for the circle dataset. You can (and should) reuse code we introduced above, just replace the dataset name with the desired dataset. Then, calculate the correlation coefficient between x and y for this dataset. How does this value compare to the r of dino?
+## the correlation coef for the circle dataset is -0.0683, which is higher than the dino correlation coef
+
+```{r question 5 code, fig.height=25, fig.width=20}
+ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
+  geom_point()+
+  facet_wrap(~ dataset, ncol = 3) +
+  theme(legend.position = "none")
+  
+datasaurus_dozen %>%
+  group_by(dataset) %>%
+  summarize(r = cor(x, y))
+```
+
+## 5. Finally, let’s plot all datasets at once. In order to do this we will make use of facetting.
+```{r}
+##i didnt mean to do this and idk how to delete it :()
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
